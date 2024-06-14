@@ -138,7 +138,13 @@ const router = createRouter({
         {
           path: 'tasks',
           children: [
-            
+            {
+              path: '',
+              component: defineAsyncComponent(() => import('@/views/user/tasks/Index.vue')),
+              meta: {
+                  title: "Tasks",
+              },
+            },
             {
               path: 'create',
               component: defineAsyncComponent(() => import('@/views/user/tasks/Create.vue')),

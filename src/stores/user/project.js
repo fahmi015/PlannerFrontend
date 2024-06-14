@@ -81,7 +81,7 @@ export const useProjectStore = defineStore('project', () => {
                     },
                 }
             );
-            alert.success("project Updated Successfully", null, "modal", 3000)
+            alert.success("Project Updated Successfully", null, "modal", 3000)
             return { status: true}
         } catch (error) {
             return { status: false }
@@ -101,12 +101,12 @@ export const useProjectStore = defineStore('project', () => {
                     },
                 }
             );
-            alert.success("project Deleted Successfully", null, "modal", 3000)
+            alert.success("Project Deleted Successfully", null, "modal", 3000)
             this.projects = this.projects.filter(function (item) {
                 return item.id !== id;
             });
         }catch(error){
-            alert.danger("project Not Deleted", null, "block", 3000)
+            alert.danger("Project Not Deleted", null, "block", 3000)
         }
     }
 

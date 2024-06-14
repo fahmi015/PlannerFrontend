@@ -62,7 +62,7 @@ export const useTaskStore = defineStore('task', () => {
                     },
                 }
             );
-            alert.success("task Created Successfully", null, "modal", 3000)
+            alert.success("Task Created Successfully", null, "modal", 3000)
             return { status: true}
         } catch (error) {
             
