@@ -1,46 +1,17 @@
 <template>
-    <!-- breadcrumb -->
-    <nav class="mb-3 px-3 py-3 text-gray-700 dark:text-gray-50 bg-white dark:bg-gray-800 rounded-md p-3 border border-gray-200" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-3">
-            <li class="inline-flex items-center">
-                <RouterLink to="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-white dark:hover:text-white">
-                    <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
-                    </svg>
-                    Dashboard
-                </RouterLink>
-            </li>
-            <li aria-current="page">
-                <div class="flex items-center">
-                    <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-300">Team</span>
-                </div>
-            </li>
-        </ol>
-    </nav>
-
-
-
-   
-    <div class="bg-white border border-gray-200 rounded-lg dark:bg-gray-800 mb-5">
-        <div class="p-4 flex justify-between border-b border-gray-200">
-            <h1 class="my-auto text-lg font-medium text-gray-600 dark:text-gray-50">Team</h1>
-
-            <routerLink to="/user/team/create" type="button" class="text-white bg-primary hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2">
-                <UserPlusIcon class="h-5 mr-1" aria-hidden="true" /> 
-                Add User       
+    <Alert class="mx-3 sm:mx-6" />
+    <div class="px-4 py-10 sm:px-4 lg:px-4 lg:py-6">
+        <div>
+            <h1 class="text-xl font-semibold text-gray-700">Team</h1>
+            <routerLink to="/user/team/create"  class="text-primary hover:underline font-medium rounded-lg text-sm py-2.5 text-center inline-flex items-center">
+                <UserPlusIcon class="h-4 w-4 mr-1" aria-hidden="true" /> 
+                Create User       
             </routerLink>
-        </div>
-       
-        <div class="">
-            <!-- alert -->
-            <Alert class="mx-3 sm:mx-6" />
+
             <div class="flow-root">
-                <div class="-mx-4  overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="-mx-4 py-2  overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full  align-middle sm:px-6 lg:px-8">
-                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-e-lg rounded-b-lg">
+                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead class="bg-gray-50">
                                     <tr>
@@ -100,8 +71,8 @@
         </div>
     </div>
 
-    <!-- Edit Password Modal -->
-    <TransitionRoot as="template" :show="editPasswordModal">
+     <!-- Edit Password Modal -->
+     <TransitionRoot as="template" :show="editPasswordModal">
         <Dialog as="div" class="relative z-50" >
             <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
@@ -150,7 +121,6 @@
         </Dialog>
     </TransitionRoot>
 
-    
 </template>
 
 <script setup>

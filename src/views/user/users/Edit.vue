@@ -1,42 +1,14 @@
 <template>
-   <nav class="mb-3 px-3 py-3 text-gray-700 dark:text-gray-50 bg-white dark:bg-gray-800 rounded-md p-3 border border-gray-200" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-3">
-            <li class="inline-flex items-center">
-                <RouterLink to="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-white dark:hover:text-white">
-                    <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
-                    </svg>
-                    Dashboard
-                </RouterLink>
-            </li>
-            <li aria-current="page">
-                <RouterLink to="/user/team" class="flex items-center">
-                    <svg aria-hidden="true" class="w-6 h-6 text-gray-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="ml-1 text-sm font-medium text-gray-700 md:ml-2 dark:text-gray-300">Team</span>
-                </RouterLink>
-            </li>
-            <li aria-current="page">
-                <div class="flex items-center">
-                    <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-300">Edit</span>
-                </div>
-            </li>
-        </ol>
-    </nav>
-
-    <div class="bg-white border border-gray-200 rounded-lg dark:bg-gray-800 mb-5">
-        <div class="p-4 flex justify-between border-b border-gray-200">
-            <h1 class="my-auto text-lg font-medium text-gray-600 dark:text-gray-50">Edit User</h1>
+   <Alert class="mx-3 sm:mx-6" />
+   <div class="px-4 py-10 sm:px-4 lg:px-4 lg:py-6">
+        <div>
+            <h1 class="text-xl font-semibold text-gray-700">Team</h1>
+            <h1 class="text-primary font-medium rounded-lg text-sm py-2.5 text-center inline-flex items-center">
+                <UserPlusIcon class="h-4 w-4 mr-1" aria-hidden="true" /> 
+                Update User       
+            </h1>
         </div>
-       
-        <div class="mt-3">
-            <!-- alert -->
-            <Alert class="mx-3 sm:mx-6" />
-            <div v-if="isLoading">
+        <div v-if="isLoading">
                 <span class="animate-spin h-6 w-6 mr-2" viewBox="0 0 24 24">
                     <IconLoader class="h-6 w-6" aria-hidden="true" />
                 </span>
@@ -44,8 +16,7 @@
             <form v-else @submit="update">
                 
                 <div class="overflow-hidden">
-                    <div class="bg-white dark:bg-gray-800 py-2 px-3 sm:px-6 mb-2">
-                        
+                    <div class="bg-white dark:bg-gray-800 py-2 mb-2">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="avatar" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Aavatar</label>
@@ -83,9 +54,7 @@
                     </button>
                 </div>
             </form>
-        </div>
-
-    </div>
+   </div>
 </template>
 
 <script setup>

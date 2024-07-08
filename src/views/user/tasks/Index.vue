@@ -449,8 +449,8 @@
             project_id:selectedProject.value.id,
             due:dated.value.value
         })
-        title.value = null
-        task.value = null
+        title.value = ""
+        task.value = ""
         IsSubmitting.value = false
         open.value = false
         localStorage.setItem('due',JSON.stringify(dated.value));

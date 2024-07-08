@@ -76,7 +76,7 @@ export const useAuthStore = defineStore('auth', () => {
         let created_at = tokenExpired.data.created_at;
 
         // Set the session duration to 15 minutes (in milliseconds)
-        let sessionDuration =  15 * 60 * 1000;
+        let sessionDuration =  60 * 8 * 60 * 1000;
 
         // Get the session start time from the token
         let sessionStartTime = new Date(created_at).getTime();
