@@ -9,13 +9,25 @@ const baseUrl = `${import.meta.env.VITE_Api_Url}/auth/`;
 export const useAuthStore = defineStore('auth', () => {
 
     const user = ref(JSON.parse(localStorage.getItem('user')))
-    const token = ref(localStorage.getItem('token'))
+    const token = ref(localStorage.getItem('token') ?? null)
+    const permissions = ref(JSON.parse(localStorage.getItem('permissions')))
 
     const alert = useAlertStore()
 
     if(user){
         tokenHasExpired()
+        getPermissions()
     }
+
+    const hasPermission = computed(() => {
+        return function(permission){
+            if(permissions.value && permissions.value.filter((p)=>p.name == permission).length == 0){
+                return false
+            }else{
+                return true
+            }
+        }
+    })
 
     async function login(username, password){
         try {
@@ -69,6 +81,30 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
+    async function getPermissions(){
+        try {
+            const response = await axios.get(
+                import.meta.env.VITE_Api_Url+'/user/users/permissions',
+                {
+                    headers: {
+                        "Accept": "application/json",
+                        "Authorization": `Bearer ${token.value}`
+                    },
+                }
+            );
+            permissions.value = response.data.permissions
+            localStorage.setItem('permissions', JSON.stringify(response.data.permissions));
+        } catch (error) {
+            user.value = null;
+            token.value = null;
+            permissions.value = null;
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            await router.push('/login');
+        }
+    }
+
+
     async function tokenHasExpired(){
 
         //retrieve user permissions
@@ -101,5 +137,5 @@ export const useAuthStore = defineStore('auth', () => {
 
     
 
-    return { user, token, login, logout }
+    return { user, token, login, logout,permissions,hasPermission }
 })

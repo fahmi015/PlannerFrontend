@@ -41,6 +41,11 @@
                                 <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last name</label>
                                 <input v-model="last_name" type="text" name="last_name" id="last_name" placeholder="Enter last name" class="dark:bg-gray-700 dark:text-gray-300 dark:border-0 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Permission</label>
+                                <Multiselect :searchable="true" :close-on-select="false" v-model="selectedPermission" mode="tags" :options="permissions"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,6 +73,8 @@ import { UserPlusIcon, EyeIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } fro
     import { useAlertStore } from '@/stores/alert'
     import { useAuthStore } from '@/stores/user/auth'
     import { useUserStore } from '@/stores/user/user'
+    import { usePermissionStore } from '@/stores/user/permission'
+    import Multiselect from '@vueform/multiselect'
     import { useForm } from 'vee-validate';
     import * as yup from 'yup';
 
@@ -77,6 +84,10 @@ import { UserPlusIcon, EyeIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } fro
     const auth = useAuthStore()
     const alertModel = useAlertStore()
     const userModel = useUserStore()
+    const permissionModel = usePermissionStore()
+
+    const permissions = ref([])
+    const selectedPermission = ref([])
 
     const isLoading = ref(true)
     const IsSubmitting = ref(false)
@@ -95,17 +106,21 @@ import { UserPlusIcon, EyeIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } fro
     /* Fields and validation end */
 
     onMounted( async() => {
+        await permissionModel.getAll()
+        permissions.value = permissionModel.permissions.map((item)=>{return {'value':item.id,"label":item.name}})
         await userModel.getById(route.params.id)
         avatar.value = userModel.user.avatar
         first_name.value = userModel.user.first_name
         last_name.value = userModel.user.last_name
         username.value = userModel.user.username
+        selectedPermission.value = userModel.user.permissions.map((item)=>item.id)
         isLoading.value = false
     })
 
     const update = handleSubmit( async (values) => {
         alertModel.clear()
         IsSubmitting.value = true
+        values['permissions_id'] = selectedPermission.value
         let result = await userModel.update(userModel.user.id, values)
         IsSubmitting.value = false
         if(result.status){
@@ -118,3 +133,4 @@ import { UserPlusIcon, EyeIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } fro
         alertModel.errors(Object.values(errors))
     }
 </script>
+<style src="@vueform/multiselect/themes/default.css"></style>

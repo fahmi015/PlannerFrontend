@@ -36,7 +36,10 @@
                                  <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last name</label>
                                  <input v-model="last_name" type="text" name="last_name" id="last_name" placeholder="Enter last name" class="dark:bg-gray-700 dark:text-gray-300 dark:border-0 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                              </div>
-
+                             <div class="col-span-6 sm:col-span-3">
+                                <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Permission</label>
+                                <Multiselect :searchable="true" :close-on-select="false" v-model="selectedPermission" mode="tags" :options="permissions"/>
+                            </div>
                              <div class="col-span-6 sm:col-span-3">
                                  <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
                                  <input v-model="password" autocomplete="password" type="password" name="password" id="password" placeholder="Enter password" class="dark:bg-gray-700 dark:text-gray-300 dark:border-0 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
@@ -46,6 +49,9 @@
                                  <label for="confirm_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
                                  <input v-model="confirm_password" autocomplete="new-password" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" class="dark:bg-gray-700 dark:text-gray-300 dark:border-0 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                              </div>
+                         </div>
+                         <div>
+
                          </div>
                      </div>
                  </div>
@@ -74,18 +80,22 @@
      import { useAlertStore } from '@/stores/alert'
      import { useAuthStore } from '@/stores/user/auth'
      import { useUserStore } from '@/stores/user/user'
+     import { usePermissionStore } from '@/stores/user/permission'
      import { useForm } from 'vee-validate';
      import * as yup from 'yup';
- 
+     import Multiselect from '@vueform/multiselect'
  
 
      const router = useRouter()
      const auth = useAuthStore()
      const alertModel = useAlertStore()
      const userModel = useUserStore()
+     const permissionModel = usePermissionStore()
  
      const IsSubmitting = ref(false)
- 
+    const permissions = ref([])
+    const selectedPermission = ref([])
+
      const schema = yup.object({
          first_name: yup.string().required(),
          last_name: yup.string().required(),
@@ -105,6 +115,11 @@
      /* Fields and validation end */
  
    
+     onMounted(async()=>{
+        await permissionModel.getAll()
+        permissions.value = permissionModel.permissions.map((item)=>{return {'value':item.id,"label":item.name}})
+     })
+
      const store = handleSubmit( async (values) => {
         alertModel.clear()
         IsSubmitting.value = true
@@ -114,6 +129,7 @@
             return false
         }
         delete values['confirm_password']
+        values['permissions_id'] = selectedPermission.value
         let result = await userModel.store(values)
         IsSubmitting.value = false
     }, onInvalidSubmit);
@@ -123,3 +139,4 @@
         alertModel.errors(Object.values(errors))
     }
  </script>
+ <style src="@vueform/multiselect/themes/default.css"></style>

@@ -15,8 +15,7 @@
                                 <IconHourglassEmpty class="h-5 w-5 shrink-0 text-gray-700" />
                                 <span class="text-sm text-gray-600 font-semibold">To Do</span>
                             </h3>
-                            <div class="bg-gray-50 h-full rounded-md p-2">
-                                
+                            <div class="bg-gray-50 h-full rounded-md p-2 overflow-y-scroll">
                                     <div class="bg-white border border-gray-100 rounded-md mb-2 p-2" v-for="task in selectedProject.tasks.filter((task)=>task.status == 'todo')">
                                         <h4 class="text-gray-800 text-sm font-semibold">{{ task.title }}</h4>
                                         <p class="text-gray-600 text-xs mb-1">{{ task.task }}</p>
@@ -46,7 +45,7 @@
                                 <IconHourglassLow class="h-5 w-5 shrink-0 text-gray-700" />
                                 <span class="text-sm text-gray-600 font-semibold">In Progress</span>
                             </h3>
-                            <div class="bg-blue-50 h-full rounded-md p-2">
+                            <div class="bg-blue-50 h-full rounded-md p-2 overflow-y-scroll">
                                 <div class="bg-white border border-gray-100 rounded-md mb-2 p-2" v-for="task in selectedProject.tasks.filter((task)=>task.status == 'in_progress')">
                                     <h4 class="text-gray-800 text-sm font-semibold">{{ task.title }}</h4>
                                     <p class="text-gray-600 text-xs mb-1">{{ task.task }}</p>
@@ -71,7 +70,7 @@
                                 <IconHourglassOff class="h-5 w-5 shrink-0 text-gray-700" />
                                 <span class="text-sm text-gray-600 font-semibold">Done</span>
                             </h3>
-                            <div class="bg-green-50 h-full rounded-md p-2">
+                            <div class="bg-green-50 h-full rounded-md p-2 overflow-y-scroll">
                                 <div class="bg-white border border-gray-100 rounded-md mb-2 p-2" v-for="task in selectedProject.tasks.filter((task)=>task.status == 'done')">
                                     <h4 class="text-gray-800 text-sm font-semibold">{{ task.title }}</h4>
                                     <p class="text-gray-600 text-xs mb-1">{{ task.task }}</p>

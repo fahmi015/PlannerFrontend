@@ -73,13 +73,19 @@
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex grow flex-col overflow-y-auto border-r border-gray-200 bg-white pb-4 items-center py-4">
         <ul role="list" class="flex grow flex-col items-center gap-y-5">
-          <li v-for="item in navigation" v-tooltip.right="item.name" :key="item.name">
-            <RouterLink :to="item.href" @click="current_path = item.name"
+          <li v-for="item in navigation" v-tooltip.right="item.name" :key="item.name" v-show="auth.hasPermission(item.permission)">
+            <RouterLink :to="item.href" @click="current_path = item.name" 
               :class="[item.current ? 'bg-gray-50 text-indigo-600' : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50', 'group flex gap-x-3 rounded-full p-2 text-sm leading-6 font-semibold']">
               <component :is="item.icon"
                 :class="[item.current ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600', 'h-6 w-6 shrink-0']"
                 aria-hidden="true" />
             </RouterLink>
+          </li>
+          <li  v-tooltip.right="'log out'">
+            <button  @click="Logout()"
+              class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-full p-2 text-sm leading-6 font-semibold">
+              <LockClosedIcon class="text-gray-400 group-hover:text-indigo-600 h-6 w-6 shrink-0" />
+            </button>
           </li>
         </ul>
       </div>
@@ -119,12 +125,15 @@ import {
   UsersIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
+
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 import { useAuthStore } from '@/stores/user/auth';
 import { useDark, useToggle } from "@vueuse/core"
 import { useRoute, useRouter } from 'vue-router'
 import { IconNote } from '@tabler/icons-vue';
 import { IconChecklist } from '@tabler/icons-vue';
+import { LockClosedIcon } from "@heroicons/vue/20/solid";
+
 const isDark = useDark();
 const toggleDark = useToggle(isDark);
 const auth = useAuthStore()
@@ -135,11 +144,11 @@ const router = useRouter()
 const current_path = ref(route.path)
 
 const navigation = ref([
-  { name: 'Tasks', href: '/user/tasks', icon: IconChecklist, current: true },
-  { name: 'Note', href: '/user/notes', icon: IconNote, current: false },
-  { name: 'Calendar', href: '/user/calendar', icon: CalendarIcon, current: false },
-  { name: 'Invoices', href: '/user/invoices', icon: BanknotesIcon, current: false },
-  { name: 'Team', href: '/user/team', icon: UsersIcon, current: false },
+  { name: 'Tasks', href: '/user/tasks', icon: IconChecklist, current: true, permission:'tasks' },
+  { name: 'Note', href: '/user/notes', icon: IconNote, current: false, permission:'note'},
+  { name: 'Calendar', href: '/user/calendar', icon: CalendarIcon, current: false, permission:'calendar' },
+  { name: 'Invoices', href: '/user/budgets', icon: BanknotesIcon, current: false, permission:'budgets' },
+  { name: 'Team', href: '/user/team', icon: UsersIcon, current: false, permission:'users' },
 ])
 const teams = [
   { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
