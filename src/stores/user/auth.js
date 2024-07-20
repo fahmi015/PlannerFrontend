@@ -53,7 +53,7 @@ export const useAuthStore = defineStore('auth', () => {
             // store user details and token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(response.data.user));
             localStorage.setItem('token', response.data.access_token);
-            
+            await getPermissions()
             await router.push('/user');
             return { status: false }
         } catch (error) {
