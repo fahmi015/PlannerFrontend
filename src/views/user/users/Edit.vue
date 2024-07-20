@@ -41,15 +41,14 @@
                                 <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last name</label>
                                 <input v-model="last_name" type="text" name="last_name" id="last_name" placeholder="Enter last name" class="dark:bg-gray-700 dark:text-gray-300 dark:border-0 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
-
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Permission</label>
-                                <Multiselect :searchable="true" :close-on-select="false" v-model="selectedPermission" mode="tags" :options="permissions"/>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-gray-50 dark:bg-gray-800 dark:border-t-2 border-gray-600 px-4 py-3 text-right space-x-2 sm:px-6">
+                <div>
+                    <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Permission</label>
+                    <Multiselect :class="'z-50'" :searchable="true" :close-on-select="false" v-model="selectedPermission" mode="tags" :options="permissions"/>
+                </div>
+                <div class="bg-gray-50 z-0 mt-10 dark:bg-gray-800 dark:border-t-2 border-gray-600 px-4 py-3 text-right space-x-2 sm:px-6">
                     <routerLink to="/user/team" class="inline-flex justify-center rounded-md border dark:bg-gray-200 border-indigo-600 bg-transparent py-2 px-4 text-sm font-medium text-primary shadow-sm hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Annuler</routerLink>
                     <button type="submit" :disabled="IsSubmitting" class="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         <span v-if="IsSubmitting" class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
