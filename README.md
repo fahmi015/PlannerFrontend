@@ -1,4 +1,4 @@
-# PlannerFrontend
+# Better Way To Manage Project and Wallets
 
 This template should help get you started developing with Vue 3 in Vite.
 
