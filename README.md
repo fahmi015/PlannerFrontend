@@ -39,3 +39,19 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+### Login page
+[![API docs](/public/login.png)](https://github.com/fahmi015/PlannerFrontend/)
+*will be in project v0.1.0
+
+### Team page
+[![API docs](/public/team.jpeg)](https://github.com/fahmi015/PlannerFrontend/)
+*will be in project v0.1.0
+
+### Tasks page
+[![API docs](/public/tasks.jpeg)](https://github.com/fahmi015/PlannerFrontend/)
+*will be in project v0.1.0
+
+### Wallets page
+[![API docs](/public/wallets.jpeg)](https://github.com/fahmi015/PlannerFrontend/)
+*will be in project v0.1.0
